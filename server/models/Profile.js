@@ -12,10 +12,6 @@ const profileSchema = new mongoose.Schema({
         type:String,
         trim:true,
     },
-    gender:{
-        type:String,
-        trim:true,
-    },
     contactNumber:{
         type:Number,
         trim:true,
