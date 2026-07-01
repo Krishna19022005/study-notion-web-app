@@ -94,7 +94,7 @@ exports.signUp =async (req,res)=>{
         }
 
         //find the most recent otp stored for user
-        const recentOtp = await OTP.find({email}).sort({createdAt:-1})/limit(1);
+        const recentOtp = await OTP.find({email}).sort({createdAt:-1}).limit(1);
 
         //validate otp
 
@@ -150,8 +150,8 @@ exports.login = async (req,res)=>{
                 success:false,
                 message:"All Fields are required",
             });
-        }
-        //check if user exists
+        }//check if user exists
+        
         const user = await User.findOne({email}).populate("additionalDEtails");
         if(!user){
             return res.status(401).json({
