@@ -201,6 +201,58 @@ exports.login = async (req,res)=>{
 
 //change password
 
+exports.changePassword = async (req,res)=>{
+    try{
+        const userDetails = await User.findById(req.user.id);
+
+        const {oldPassword,newPassword} = req.body;
+        //validate old password
+        const isPasswordMatch = await bcrypt.compare(oldPassword,userDetails.password);
+
+        if(!isPasswordMatch){
+            return res.status(401).json({
+                success:false,
+                message:"The password is incorrect",
+            });
+        }
+        //update password
+
+        const hashedPass = await bcrypt.hash(newPassword,10);
+        const updateUserDetails = await User.findByIdAndUpdate(
+            req.user.id,
+            {password:hashedPass},
+            {new:true},
+        )
+        //send email
+        try{
+            const emailResponse = await mailSender(
+                updateUserDetails.email,
+                "Your StudyNotion password is updated successfully",
+                passwordUpdated(
+                    updateUserDetails.email,
+                    updateUserDetails.firstName,
+                ),
+            )
+        }
+        catch(err){
+            console.log("Error Occured While Sending Mail: ",err);
+            return res.status(500).json({
+                success:false,
+                message:"Error Occured while Sending Email",
+
+            });
+        }
+
+    }
+    catch(error){
+        console.error('Error Occurred While Updating Password', error);
+        return res.status(500).json({
+            success: false,
+            message: 'Error Occurred While Updating Password',
+            error: error.message,
+        });
+    }
+}
 
 
 

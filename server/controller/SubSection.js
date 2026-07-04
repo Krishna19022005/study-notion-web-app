@@ -41,7 +41,7 @@ exports.createSubSection = async (req,res)=>{
     }
     catch(err){
         return res.status(500).json({
-            success:true,
+            success:false,
             message:"Internal Sever Error",
             error:err.message,
         });
@@ -49,4 +49,79 @@ exports.createSubSection = async (req,res)=>{
 };
 //pending 
 //update
+exports.updateSubSection = async (req,res)=>{
+    try{
+        const {sectionId,title,description} = req.body;
+        const subSection = await SubSection.findById(sectionId);
+
+        if(!subSection){
+            return res.status(404).json({
+                success:false,
+                message:"SubSection not found",
+                error:err.message,
+            });
+        }
+        if(title !== undefined){
+            subSection.title = title;
+        }
+        if(!description){
+            subSection.description = description;
+        }
+
+        if(req.files && req.files.video !== undefined){
+            const video = req.file.videoFile;
+            const uploadDetails = await uploadImageToCloudinary(video,process.env.FOLDER_NAME);
+            subSection.videoUrl = uploadDetails.secure_url;
+            subSection.timeDuration = `${uploadDetails.duration}`;
+    
+        }
+        await subSection.save();
+
+        return res.json({
+            success: true,
+            message: "Section updated Successfully"
+        })
+    }
+    catch(err){
+        console.log(err);
+        return res.status(500).json({
+            success:false,
+            message:"An error occured while updating the section",
+        })
+    }
+}
 //delete
+exports.deleteSubSection = async (req,res)=>{
+    try{
+        const {subSectionId,sectionId} = req.body;
+        await Section.findByIdAndUpdate(
+            {_id:sectionId},
+            {
+                $pull:{
+                    subSection:subSectionId,
+                },
+            }
+        );
+
+        const subSection = await subSection.findByIdAndDelete({_id:subSectionId});
+
+        if(!subSection){
+            return res.status(404).json({
+                success:false,
+                message:"SubSection not found",
+            })
+        }
+
+        return res.json({
+            success:true,
+            message:"SubSection deleted Successfully",
+        })
+    }
+    catch(err){
+        console.log(err);
+        return res.status(500).json({
+            success:false,
+            message:"An error occured while deleting the section",
+        })
+    }
+}
