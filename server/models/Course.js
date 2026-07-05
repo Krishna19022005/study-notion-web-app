@@ -25,10 +25,10 @@ const courseSchems = new mongoose.Schema({
             ref:"Section",
         }
     ],
-    ratingAndReview:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"RatingAndReview",
-    },
+    ratingAndReview:[
+       { type:mongoose.Schema.Types.ObjectId,
+        ref:"RatingAndReview",}
+    ],
     price:{
         type:Number,
         required:true,
@@ -37,13 +37,31 @@ const courseSchems = new mongoose.Schema({
         type:String,
     },
     tag:{
-        type:mongoose.Schema.Types.ObjectId,
-        ref:"Tag",
-    },
-    studentsEnrolled:{
-        type:mongoose.Schema.Types.ObjectId,
+        type:[String],
         required:true,
-        ref:"User",
+    },
+    category:{
+        type:mongoose.Schema.Type.ObjectId,
+        ref:"Category",
+    },
+    studentsEnrolled:[
+        {
+            type:mongoose.Schema.Types.ObjectId,
+            required:true,
+            ref:"User",
+        },
+    ],
+    instructions:{
+        type:[String],
+        required:true,
+    },
+    status:{
+        type:String,
+        enum:["Draft","Published"],
+    },
+    createdAt:{
+        type:Date,
+        Date:Date.now
     },
 });
 
