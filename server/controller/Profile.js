@@ -1,6 +1,6 @@
 const Profile = require("../models/Profile");
 const User = require("../models/User");
-const uploadImageToCloudinary = require("../utils/imageUploader");
+const {uploadImageToCloudinary} = require("../utils/imageUploader");
 exports.updateProfile = async (req,res)=>{
     try{
         //get data
@@ -8,7 +8,7 @@ exports.updateProfile = async (req,res)=>{
         //get User id
         const id = req.user.id;
 
-        if(!contachNumber || !gender || !id){
+        if(!gender || !id){
             return res.status(400).json({
                 success:false,
                 message:"All fields are required",
@@ -93,7 +93,7 @@ exports.getAllUserDetails = async (req,res)=>{
 //update picture
 exports.updateDisplayPicture = async (req,res)=>{
     try{
-        const displayPicature = req.files.displayPicture;
+        const displayPicture = req.files.displayPicture;
         const userId = req.user.id;
         const image = await uploadImageToCloudinary(
             displayPicture,

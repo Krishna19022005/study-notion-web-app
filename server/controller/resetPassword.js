@@ -1,8 +1,9 @@
 const User = require("../models/User");
 const mailSender = require("../utils/mailSender");
 const bcrypt = require("bcrypt")
+const crypto = require("crypto");
 //resetPasswordToken
-exports.resetPasswordToken = async (requestAnimationFrame,res)=>{
+exports.resetPasswordToken = async (req,res)=>{
     try{
         //get email from req
         const email = req.body.email;

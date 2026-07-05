@@ -14,11 +14,11 @@ const {
 //profile routes
 
 router.delete("/deleteProfile",auth,deleteAccount);
-router.put("/upadteProfile",auth,updateProfile);
+router.put("/updateProfile",auth,updateProfile);
 router.get('/getUserDetails',auth,getAllUserDetails);
 
 //get Enrolled courses
-router.get("/getEnrolledCourses",auth,getEnrolledCourses);
+router.get("/enrolledCourses",auth,getEnrolledCourses);
 router.put("/updateDisplayPicture",auth,updateDisplayPicture);
 
 module.exports = router;

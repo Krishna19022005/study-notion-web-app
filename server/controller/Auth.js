@@ -4,6 +4,7 @@ const otpGenerator = require("otp-generator");
 const bcrypt = require("bcrypt");
 const Profile = require("../models/Profile");
 const jwt = require("jsonwebtoken");
+
 require("dotenv").config();
 //sendOtp to db
 
@@ -63,13 +64,13 @@ exports.sendOTP = async(req,res)=>{
 }
 
 //sign Up
-exports.signUp =async (req,res)=>{
+exports.signUp = async (req,res)=>{
    
     try{
          //fetch data from req body
         const {firstName,lastName,email,password,confirmPassword,accountType,contactNumber,otp} = req.body;
         //validate
-        if(!firstName || !lastName || !email || !password || !confirmPassword || !oto || !contactNumber){
+        if(!firstName || !lastName || !email || !password || !confirmPassword || !otp || !contactNumber){
             return res.status(403).json({
                 success:false,
                 message:"All Fields are Required",
@@ -98,11 +99,18 @@ exports.signUp =async (req,res)=>{
 
         //validate otp
 
-        if(recentOtp !== otp){
+       if(recentOtp.length === 0) {
+            //OTP not found
             return res.status(400).json({
-                success:false,
-                message:"Invalid OTP",
-            })
+                success: false,
+                message: 'The OTP is not valid',
+            });
+        } else if ( otp !== recentOtp[0].otp) {
+            //Invalid OTP
+            return res.status(400).json({
+                success: false,
+                message: 'The OTP is not valid',
+            });
         }
         //hash password
         const hashedPass = await bcrypt.hash(password,10);
@@ -152,7 +160,7 @@ exports.login = async (req,res)=>{
             });
         }//check if user exists
         
-        const user = await User.findOne({email}).populate("additionalDEtails");
+        const user = await User.findOne({email}).populate("additionalDetails");
         if(!user){
             return res.status(401).json({
                 success:false,

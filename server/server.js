@@ -15,7 +15,7 @@ const dotenv = require("dotenv");
 
 dotenv.config();
 const PORT = process.env.PORT || 4000;
-
+console.log(process.env.MAIL_PASS)
 database.connect();
 cloudinaryConnect();
 
