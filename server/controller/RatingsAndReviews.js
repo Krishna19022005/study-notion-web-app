@@ -3,7 +3,7 @@ const Course = require("../models/Course");
 
 //create Rating
 
-exports.createrating = async (req,res)=>{
+exports.createRating = async (req,res)=>{
     try{
         const userId = req.body.user.id;
         const {rating,review,courseId} = req.body;

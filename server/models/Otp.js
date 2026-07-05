@@ -8,7 +8,7 @@ const OTPSchema = mongoose.Schema({
         trim:true,
     },
     otp:{
-        type:string,
+        type:String,
         required:true,
     },
     createdAt:{

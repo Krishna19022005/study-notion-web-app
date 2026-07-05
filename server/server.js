@@ -22,10 +22,12 @@ cloudinaryConnect();
 //middlewares
 app.use(express.json());
 app.use(cookieParser());
-app.use({
-    origin:'http://localhost/3000',
-    credentials:true,
-})
+app.use(
+    cors({
+         origin:'http://localhost/3000',
+        credentials:true,
+    })
+)
 app.use(
     fileUpload({
         useTempFiles:true,
@@ -36,8 +38,8 @@ app.use(
 //mount routes
 app.use("/api/v1/auth",userRoutes);
 app.use("/api/v1/course",courseRoutes);
-api.use("/api/v1/profile",profileRoutes);
-api.use("/api/v1/payment",paymentRoutes);
+app.use("/api/v1/profile",profileRoutes);
+app.use("/api/v1/payment",paymentRoutes);
 
 //default route
 app.get("/",(req,res)=>{
