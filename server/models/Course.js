@@ -16,7 +16,7 @@ const courseSchema = new mongoose.Schema({
         ref:"User",
         required:true,
     },
-    whatYouWilllLearn:{
+    whatYouWillLearn:{
         type:String,
     },
     courseContent:[
@@ -61,7 +61,7 @@ const courseSchema = new mongoose.Schema({
     },
     createdAt:{
         type:Date,
-        Date:Date.now
+        Date:Date.now()
     },
 });
 

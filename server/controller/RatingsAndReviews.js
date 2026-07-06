@@ -10,7 +10,7 @@ exports.createRating = async (req,res)=>{
 
         const courseDetails = await Course.findOne({
             _id:courseId,
-            studentsEnrolled:{$eleMatch:{$eg:userid}},
+            studentsEnrolled:{$eleMatch:{$eg:userId}},
         });
 
         if(!courseDetails){
