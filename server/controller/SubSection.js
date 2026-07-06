@@ -32,11 +32,12 @@ exports.createSubSection = async (req,res)=>{
             {$push:{
                 subSection:SubSectionDetails._id,
             }},
-            {new:true00}
-        );
+            {new:true}
+        ).populate("subSection").exec();
         return res.status(200).json({
             success:true,
             message:"Sub Section Created Successfully",
+             data: updatedSection,
         });
     }
     catch(err){
@@ -47,7 +48,7 @@ exports.createSubSection = async (req,res)=>{
         });
     }
 };
-//pending 
+
 //update
 exports.updateSubSection = async (req,res)=>{
     try{
@@ -64,7 +65,7 @@ exports.updateSubSection = async (req,res)=>{
         if(title !== undefined){
             subSection.title = title;
         }
-        if(!description){
+        if(description){
             subSection.description = description;
         }
 
@@ -100,12 +101,13 @@ exports.deleteSubSection = async (req,res)=>{
                 $pull:{
                     subSection:subSectionId,
                 },
-            }
+            },
+            {new:true}
         );
 
-        const subSection = await subSection.findByIdAndDelete({_id:subSectionId});
+        const deletedSubSection = await SubSection.findByIdAndDelete({_id:subSectionId});
 
-        if(!subSection){
+        if(!deletedSubSection){
             return res.status(404).json({
                 success:false,
                 message:"SubSection not found",

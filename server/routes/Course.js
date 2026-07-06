@@ -47,25 +47,25 @@ const {
 //Course Routes
 //Only instructor can create courses
 
-router.post('/createCourse',auth,isInstructor,createCourse);
+router.post('/createCourse',auth,isInstructor,createCourse);//done
 
-router.post('/addSection',auth,isInstructor,createSection);
-router.post('/updateSection',auth,isInstructor,updateSection);
-router.post("/deleteSection",auth,isInstructor,deleteSection);
+router.post('/addSection',auth,isInstructor,createSection);//done
+router.post('/updateSection',auth,isInstructor,updateSection);//done
+router.post("/deleteSection",auth,isInstructor,deleteSection);//done
 
-router.post("/createSubSection",auth,isInstructor,createSubSection);
-router.post('/updateSubSection',auth,isInstructor,updateSubSection);
-router.post("/deleteSubSection",auth,isInstructor,deleteSubSection);
+router.post("/createSubSection",auth,isInstructor,createSubSection);//done
+router.post('/updateSubSection',auth,isInstructor,updateSubSection);//done
+router.post("/deleteSubSection",auth,isInstructor,deleteSubSection);//done
 
-router.get("/getAllCourses",getAllCourses);
-router.get("/getCourseDetails",getCourseDetails);
+router.get("/getAllCourses",getAllCourses);//done
+router.get("/getCourseDetails",getCourseDetails);//done
 
 //Category routes
 //only admin can create category
 
-router.post("/createCategory",auth,isAdmin,createCategory);
-router.get("/showAllCategories",showAllCategories);
-router.get("/getCategoryPageDetails",categoryPageDetails);
+router.post("/createCategory",auth,isAdmin,createCategory);//done
+router.get("/showAllCategories",showAllCategories);//done
+router.get("/getCategoryPageDetails",categoryPageDetails);//done
 
 //rating and reviews
 router.get('/createRating',auth,isStudent,createRating);

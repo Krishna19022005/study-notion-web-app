@@ -53,7 +53,7 @@ exports.showAllCategories = async (req,res)=>{
 exports.categoryPageDetails = async (req,res)=>{
     try{
         //get category id
-        const {categoryId} = req.body;
+        const {categoryId} = req.query;
         //get courses for specified category
         const selectedCategory = await Category.findById(categoryId).populate("courses").exec();
         
@@ -66,8 +66,8 @@ exports.categoryPageDetails = async (req,res)=>{
         //get courses for different categories
         const differentCategories  = await Category.find(
             {_id:{$ne:categoryId}}
-            .populate("courses").exec()   
-        )
+             
+        ) .populate("courses").exec() ;
 
         return res.status(200).json({
             success:true,

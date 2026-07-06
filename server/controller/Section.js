@@ -1,6 +1,6 @@
 const Section = require("../models/Section");
 const Course = require("../models/Course");
-
+const SubSection = require("../models/SubSection");
 exports.createSection = async (req,res)=>{
     try{
         //data fetch
@@ -41,8 +41,8 @@ exports.createSection = async (req,res)=>{
 //update section
 exports.updateSection = async (req,res)=>{
     try{
-        const{sectionName,sectionId} = req.bosy;
-        if(!sectionName,sectionId){
+        const{sectionName,sectionId} = req.body;
+        if(!sectionName || !sectionId){
             return res.status(400).json({
                 success:false,
                 message:"Missing Properties",
@@ -69,9 +69,36 @@ exports.updateSection = async (req,res)=>{
 exports.deleteSection = async (req,res)=>{
     try{
         //det id
-        const {sectionId} = req.params;
+        const {sectionId,courseId} = req.body;
+        //remove section from course
+        await Course.findByIdAndUpdate(
+            courseId,
+            {
+                $pull:{
+                    courseContent:sectionId,
+                },
+            },
+            {new:true}
+        );
+        //find the section
+
+        const section = await Section.findById(sectionId);
+        
+        if (!section) {
+            return res.status(404).json({
+                success: false,
+                message: "Section not found",
+            });
+        }
+
+        // Delete all subsections
+        for (const subSectionId of section.subSection) {
+            await SubSection.findByIdAndDelete(subSectionId);
+        }
+
+        // Delete the section
         await Section.findByIdAndDelete(sectionId);
-        //TODO should we need to delete entry from couse schema
+
         return res.status(200).json({
             success:true,
             messsage:"Section deleted successfully",
