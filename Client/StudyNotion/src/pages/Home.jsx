@@ -5,12 +5,15 @@ import HighlightText from '../components/core/HomePage/HighilightText'
 import CTAButton from '../components/core/HomePage/Button'
 import Banner from '../assets/Images/banner.mp4'
 import CodeBlocks from "../components/core/HomePage/CodeBlocks"
+import LearningLanguageSection from '../components/core/HomePage/LearningLanguageSection'
+import TimelineSection from '../components/core/HomePage/TimelineSection'
+
 
 const Home=()=>{
     return(
         <div >
             {/* section-1 */}
-            <div className="relative mx-auto flex w-11/12 max-w-maxContent flex-col items-center justify-between gap-4 text-white">
+            <div className="relative mx-auto flex w-9/12 max-w-maxContent flex-col items-center justify-between gap-4 text-white">
                 <Link to={"/signUp"}>
                     <div className="group mt-16 p-1 mx-auto rounded-full bg-richblack-800 font-bold text-richblack-200 transition-all duration-200 hover:scale-95 w-fit drop-shadow-[0_1.5px_rgba(255,255,255,0.25)] hover:shadow-none">
                         <div className='flex flex-row items-center gap-2 rounded-full px-10 py-1 group-hover:bg-richblack-800'>
@@ -35,7 +38,7 @@ const Home=()=>{
                     </CTAButton>
                 </div>
                 <div className='w-[700px] mt-4 shadow-blue-200 '>
-                    <video muted loop autoPlay className="w-full rounded-lg h-[550px] ">
+                    <video muted loop autoPlay playsInline className="w-full rounded-lg h-[550px] ">
                         <source src={Banner} type="video/mp4" />
                     </video>
                 </div>
@@ -107,6 +110,29 @@ const Home=()=>{
                     />
                 </div>
             </div>
+
+            {/* Section-2 */}
+            <div className='bg-richblue-25 text-richblack-700'>
+                <div className='mx-auto flex w-9/12 max-w-maxContent flex-col items-center justify-between gap-8'>
+                    <div className='mb-10 mt-[100px] flex flex-col justify-between gap-7 lg:flex-row  lg:gap-0'>
+                        <div className='text-4xl font-semibold lg:w-[45%]'>
+                            Get the skills you needed for a
+                            <HighlightText text={" job that is in demand."}/>
+                        </div>
+                        <div className='flex flex-col items-start gap-10 lg:w-[40%]'>
+                            <div className='text-[16px] text-richblack-600'>
+                                The modern StudyNotion is the dictates its own terms. Today, to be a competitive specialist requires more than professional skills.
+                            </div>
+                            <CTAButton active={true} linkto={"/signup"}>Learn More</CTAButton>
+                        </div>
+                    </div>
+                    <TimelineSection/>
+                </div>
+                
+                {/* <LearningLanguageSection/> */}
+            </div>
+
+
         </div>
     )
 }
