@@ -7,13 +7,15 @@ import Banner from '../assets/Images/banner.mp4'
 import CodeBlocks from "../components/core/HomePage/CodeBlocks"
 import LearningLanguageSection from '../components/core/HomePage/LearningLanguageSection'
 import TimelineSection from '../components/core/HomePage/TimelineSection'
+import InstructorSection from '../components/core/HomePage/InstructorSection'
+import ExploreMore from '../components/core/HomePage/ExploreMore'
 
 
 const Home=()=>{
     return(
         <div >
             {/* section-1 */}
-            <div className="relative mx-auto flex w-9/12 max-w-maxContent flex-col items-center justify-between gap-4 text-white">
+            <div className="relative mx-auto flex w-9/12 max-w-maxContent flex-col items-center justify-between gap-4 mb-28 text-white"> 
                 <Link to={"/signUp"}>
                     <div className="group mt-16 p-1 mx-auto rounded-full bg-richblack-800 font-bold text-richblack-200 transition-all duration-200 hover:scale-95 w-fit drop-shadow-[0_1.5px_rgba(255,255,255,0.25)] hover:shadow-none">
                         <div className='flex flex-row items-center gap-2 rounded-full px-10 py-1 group-hover:bg-richblack-800'>
@@ -37,7 +39,7 @@ const Home=()=>{
                         Book a Demo
                     </CTAButton>
                 </div>
-                <div className='w-[700px] mt-4 shadow-blue-200 '>
+                <div className='w-[900px] mt-4 shadow-blue-200 '>
                     <video muted loop autoPlay playsInline className="w-full rounded-lg h-[550px] ">
                         <source src={Banner} type="video/mp4" />
                     </video>
@@ -109,12 +111,13 @@ const Home=()=>{
                         backgroundGradient={"codeblock2"}
                     />
                 </div>
+                <ExploreMore />
             </div>
 
             {/* Section-2 */}
             <div className='bg-richblue-25 text-richblack-700'>
-                <div className='mx-auto flex w-9/12 max-w-maxContent flex-col items-center justify-between gap-8'>
-                    <div className='mb-10 mt-[100px] flex flex-col justify-between gap-7 lg:flex-row  lg:gap-0'>
+                <div className='mx-auto  flex w-9/12 max-w-maxContent flex-col items-center justify-between gap-8'>
+                    <div className='mb-10 mt-[300px] flex flex-col justify-between gap-7 lg:flex-row  lg:gap-0'>
                         <div className='text-4xl font-semibold lg:w-[45%]'>
                             Get the skills you needed for a
                             <HighlightText text={" job that is in demand."}/>
@@ -127,12 +130,17 @@ const Home=()=>{
                         </div>
                     </div>
                     <TimelineSection/>
+                     <LearningLanguageSection/>
                 </div>
                 
-                {/* <LearningLanguageSection/> */}
+               
             </div>
 
-
+            {/* section-3 */}
+            <div className='relative mx-auto my-20 flex w-9/12 max-w-maxContent flex-col items-center justify-between gap-8 bg-richblack-900 text-white'>
+                <InstructorSection/>
+                <h1 className='text-center text-4xl font-semibold mt-8'>Reviews from other learners</h1>
+            </div>
         </div>
     )
 }
