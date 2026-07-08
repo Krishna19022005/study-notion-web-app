@@ -9,7 +9,7 @@ import LearningLanguageSection from '../components/core/HomePage/LearningLanguag
 import TimelineSection from '../components/core/HomePage/TimelineSection'
 import InstructorSection from '../components/core/HomePage/InstructorSection'
 import ExploreMore from '../components/core/HomePage/ExploreMore'
-
+import Footer from '../components/Common/Footer'
 
 const Home=()=>{
     return(
@@ -139,8 +139,9 @@ const Home=()=>{
             {/* section-3 */}
             <div className='relative mx-auto my-20 flex w-9/12 max-w-maxContent flex-col items-center justify-between gap-8 bg-richblack-900 text-white'>
                 <InstructorSection/>
-                <h1 className='text-center text-4xl font-semibold mt-8'>Reviews from other learners</h1>
             </div>
+
+            <Footer/>
         </div>
     )
 }
