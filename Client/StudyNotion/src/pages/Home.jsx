@@ -140,7 +140,6 @@ const Home=()=>{
             <div className='relative mx-auto my-20 flex w-9/12 max-w-maxContent flex-col items-center justify-between gap-8 bg-richblack-900 text-white'>
                 <InstructorSection/>
             </div>
-
             <Footer/>
         </div>
     )
