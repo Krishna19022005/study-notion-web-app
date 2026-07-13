@@ -68,9 +68,9 @@ exports.signUp = async (req,res)=>{
    
     try{
          //fetch data from req body
-        const {firstName,lastName,email,password,confirmPassword,accountType,contactNumber,otp} = req.body;
+        const {firstName,lastName,email,password,confirmPassword,accountType,otp} = req.body;
         //validate
-        if(!firstName || !lastName || !email || !password || !confirmPassword || !otp || !contactNumber){
+        if(!firstName || !lastName || !email || !password || !confirmPassword || !otp){
             return res.status(403).json({
                 success:false,
                 message:"All Fields are Required",
@@ -127,7 +127,6 @@ exports.signUp = async (req,res)=>{
             firstName,
             lastName,
             email,
-            contactNumber,
             password:hashedPass,
             accountType,
             additionalDetails:profileDetails._id,

@@ -71,7 +71,7 @@ const LoginForm = ()=>{
                 </div>
 
                 <Link to="/forgetPassword">
-                    <p className='text-xs text-blue-100 w-full ml-auto '>
+                    <p className='text-md text-blue-100 w-full  mt-2 '>
                         Forget Password
                     </p>
                 </Link>

@@ -142,7 +142,7 @@ const SignUpForm =()=>{
                     />
                 </label>
 
-                <div classname="flex flex-col gap-y-6">
+                <div className="flex flex-col ">
                     <label >
                         <p className="mb-1 text-[0.875rem] leading-[1.375rem] text-richblack-5">Create password<sup className="text-pink-200">*</sup></p>
                         <div className='relative'>

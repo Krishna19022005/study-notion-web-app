@@ -66,9 +66,15 @@ export function signUp(
             navigate("/login");
         }
         catch(error){
-            console.log("Signup api error",error)
-            toast.error("SignUp failed");
-            navigate("/signUp")
+            console.log("Signup api error", error);
+
+            if(error.response){
+                console.log("Status:", error.response.status);
+                console.log("Response:", error.response.data);
+            }
+
+            toast.error(error.response?.data?.message || "SignUp Failed");
+            navigate("/signUp");
         }
         toast.dismiss(toastId)
     }
@@ -110,5 +116,43 @@ export function logout(navigate){
         localStorage.removeItem("user")
         toast.success("Logged Out")
         navigate("/")
+    }
+}
+
+export function getPasswordResetToken(email,setEmailSent){
+    return async(dispatch)=>{
+        const toastId = toast.loading("Loading...")
+        try{
+            const response = await apiConnector("POST",RESETPASSWORDTOKEN_API,{email});
+            console.log("RESET PASSWORD TOKEN response",response);
+            if(!response.data.success){
+                throw new Error(response.data.message);
+            }
+            toast.success("Reset Email Sent");
+            setEmailSent(true);
+        }catch(err){
+            console.log("Reset Password Token Error",err);
+            toast.error("Failed To Send Email For Resetting Password");
+        }
+        toast.dismiss(toastId);
+    }
+}
+
+export function resetPassword(password,confirmPassword,token,navigate){
+    return async(dispatch)=>{
+        const toastId = toast.loading("Loading...")
+        try{
+            const response = await apiConnector("POST",RESETPASSWORD_API,{password,confirmPassword,token});
+            console.log("Reset Password Response: ",response);
+            if(!response.data.success){
+                throw new Error(response.data.message);
+            }
+            toast.success("Password Has Been Reset Successfully");
+            navigate("/login");
+        }catch(error){
+            console.log("Reset Password Token Error...",error);
+            toast.error("Unable To Reset Password");
+        }
+        toast.dismiss(toastId);
     }
 }
