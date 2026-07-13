@@ -3,7 +3,7 @@ import { AiOutlineEye ,AiOutlineEyeInvisible } from 'react-icons/ai';
 import { Link } from 'react-router-dom';
 import {useDispatch} from 'react-redux'
 import {useNavigate} from 'react-router-dom'
-import {login} from 'services'
+import {login} from '../../../services/operations/authApi' 
 const LoginForm = ()=>{
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -24,8 +24,8 @@ const LoginForm = ()=>{
     }
 
     const handleOnSubmit = (e)=>{
-        e.preventtDefault();
-        dispatch(login(email,password,navigate));
+        e.preventDefault();
+        dispatch(login(formData.email,formData.password,navigate));
     }
     return (
         <form onSubmit={handleOnSubmit}
@@ -37,7 +37,7 @@ const LoginForm = ()=>{
                 <input 
                 type="text"
                 required
-                value={FormData.email}
+                value={formData.email}
                 onChange={changeHandler}
                 placeholder='Enter Email id'
                 name='email'
@@ -48,25 +48,27 @@ const LoginForm = ()=>{
                 />
             </label>
             <label className='w-full'>
-                <p className='text-[0.875rem] text-richblack-5 mb-1 leading-[1.375rem]'>
-                    Password<sup className='text-pink-200'>*</sup>
-                </p>
-                <input 
-                required
-                type={showPassword?("text"):("password")}
-                value={FormData.password} 
-                onChange={changeHandler}
-                placeholder='Enter Password'
-                name='password'
-                style={{
-                    boxShadow: "inset 0px -1px 0px rgba(255, 255, 255, 0.18",
-                }}
-                className='bg-richblack-800 rounded-[0.5rem] text-richblack-5 w-full p-[12px]'
-                />
-                <span className='absolute right-3 top-[38px] cursor-pointer'
-                onClick={()=>setShowPassword((prev)=>!prev)}>
-                    {showPassword ? (<AiOutlineEyeInvisible fontSize={24} fill='#AFB2BF'/>) : (<AiOutlineEye fontSize={24} fill='#AFB2BF'/>)}
-                </span>
+                <div className='relative'>
+                    <p className='text-[0.875rem] text-richblack-5 mb-1 leading-[1.375rem]'>
+                        Password<sup className='text-pink-200'>*</sup>
+                    </p>
+                    <input 
+                    required
+                    type={showPassword?("text"):("password")}
+                    value={formData.password} 
+                    onChange={changeHandler}
+                    placeholder='Enter Password'
+                    name='password'
+                    style={{
+                        boxShadow: "inset 0px -1px 0px rgba(255, 255, 255, 0.18",
+                    }}
+                    className='relative bg-richblack-800 rounded-[0.5rem] text-richblack-5 w-full p-[12px]'
+                    />
+                    <span className='absolute right-3 top-[38px] cursor-pointer'
+                    onClick={()=>setShowPassword((prev)=>!prev)}>
+                        {showPassword ? (<AiOutlineEyeInvisible fontSize={24} fill='#AFB2BF'/>) : (<AiOutlineEye fontSize={24} fill='#AFB2BF'/>)}
+                    </span>
+                </div>
 
                 <Link to="/forgetPassword">
                     <p className='text-xs text-blue-100 w-full ml-auto '>

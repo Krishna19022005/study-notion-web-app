@@ -9,10 +9,10 @@ import {useSelector} from 'react-redux'
 const Template =({title,desc1,desc2,image,formType,setIsLoggedIn})=>{
     
     return (
-        <div className='flex mx-auto flex-col-reverse justify-between w-11/12 max-w-[1160px] py-12 mx-auto gap-y-12 md:flex-row md:gap-y-0 md:gap-x-12'>
-            <div className='mx-auto w-11/12 max-w-[450px] md:mx-0 '>
+        <div className='flex mx-auto flex-col-reverse justify-between w-11/12 max-w-[1160px] py-8 mx-auto gap-y-12 md:flex-row md:gap-y-0 md:gap-x-12'>
+            <div className='mx-auto w-11/12 max-w-[450px] md:mx-0  '>
                 <h1 className='text-richblack-5 font-semibold text-[1.875rem] leading-[2.375rem] '>{title}</h1>
-                <p className='text-[1.125rem] mt-4 leading-[1.625rem] '>
+                <p className='text-[1.125rem] mt-2 leading-[1.625rem] '>
                     <span className='text-richblack-100'>{desc1}</span><br />
                     <span className='text-blue-100 font-bold italic'>{desc2}</span>
                 </p>
@@ -31,7 +31,7 @@ const Template =({title,desc1,desc2,image,formType,setIsLoggedIn})=>{
                     <p>Sign Up with Google</p>
                 </button>
             </div>
-            <div className='relative w-11/12 max-w-[450px]  '>
+            <div className='relative w-11/12 max-w-[530px]  '>
                 <img src={frameImg}
                 alt='Pattern'
                 width={558}
