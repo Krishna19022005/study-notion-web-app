@@ -14,6 +14,7 @@ export const endpoints = {
 }
 
 //contact us endpoint
-export const contactusEndpoint = {
+export const contactUsEndpoint = {
   CONTACT_US_API:BASE_URL +"/reach/contact",
-}
+}   
+

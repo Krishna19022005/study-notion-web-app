@@ -2,14 +2,14 @@ import React from 'react'
 import ContactUsForm from '../../contactPage/ContactUsForm'
 const ContactFormSection = ()=>{
     return (
-        <div className='mx-auto'>
+        <div className='mx-auto  '>
             <h1 className='text-center text-4xl font-semibold'>
                 Get in Touch
             </h1>
             <p className='text-center text-4xl font-semibold'>
                 We"d love to here for you, Please fill out this form.
             </p>
-            <div className='mt-12 mx-auto'>
+            <div className='mt-12 flex justify-center'>
                 <ContactUsForm/>
             </div>
         </div>

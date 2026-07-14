@@ -8,11 +8,11 @@ import FoundingStory from '../assets/Images/FoundingStory.png'
 import StatsComponent from '../components/core/About/StatsComponent'
 import LearningGrid from '../components/core/About/LearningGrid'
 import ContactFormSection from '../components/core/About/ContactFormSection'
-
+import Footer from '../components/Common/Footer'
 
 const About=()=>{
     return(
-        <div className='mb-20'>
+        <div >
             {/* section1 */}
             <section className='bg-richblack-700 pt-8'>
                 <div className='relative mx-auto flex w-11/12 max-w-maxContent flex-col justify-between gap-10 text-center text-white'>
@@ -90,10 +90,12 @@ const About=()=>{
             <StatsComponent/>
 
             {/* section-5 */}
-            <section className='mx-auto mt-20 flex w-11/12 max-w-maxContent flex-col justify-between gap-10 text-white'>
+            <section className='mx-auto mt-20 mb-12 flex w-11/12 max-w-maxContent flex-col justify-between gap-10 text-white'>
                 <LearningGrid/>
                 <ContactFormSection />
             </section>
+
+            <Footer/>
         </div>
     )
 }
