@@ -1,28 +1,30 @@
 const nodemailer = require("nodemailer");
 
-require("dotenv").config();
+const mailSender = async (email, title, body) => {
+  try {
+    const transporter = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        user: process.env.MAIL_USER,
+        pass: process.env.MAIL_PASS,
+      },
+    });
 
-const mailSender = async (email,title,body)=>{
-    try{
-        let transporter = nodemailer.createTransport({
-            host:process.env.MAIL_HOST,
-            auth:{
-                user:process.env.MAIL_USER,
-                pass:process.env.MAIL_PASS,
-            }
-        })
+    await transporter.verify();
+    console.log("SMTP connection successful");
 
-        let info = await transporter.sendMail({
-            from:"StudyNotion",
-            to:`${email}`,
-            subject:`${title}`,
-            html:`${body}`,
-        })
-        return info;
-    }
-    catch(err){
-        console.log(err.message);
-    }
+    const info = await transporter.sendMail({
+      from: `"StudyNotion" <${process.env.MAIL_USER}>`,
+      to: email,
+      subject: title,
+      html: body,
+    });
+
+    console.log(info);
+    return info;
+  } catch (err) {
+    console.error(err);
+  }
 };
 
 module.exports = mailSender;
