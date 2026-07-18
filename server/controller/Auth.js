@@ -4,6 +4,8 @@ const otpGenerator = require("otp-generator");
 const bcrypt = require("bcrypt");
 const Profile = require("../models/Profile");
 const jwt = require("jsonwebtoken");
+const mailSender = require("../utils/mailSender");
+const { passwordUpdate } = require("../mail/templates/passwordUpdate");
 
 require("dotenv").config();
 //sendOtp to db
@@ -235,11 +237,15 @@ exports.changePassword = async (req,res)=>{
             const emailResponse = await mailSender(
                 updateUserDetails.email,
                 "Your StudyNotion password is updated successfully",
-                passwordUpdated(
+                passwordUpdate(
                     updateUserDetails.email,
                     updateUserDetails.firstName,
                 ),
             )
+            return res.status(200).json({
+                success: true,
+                message: "Password updated successfully",
+            });
         }
         catch(err){
             console.log("Error Occured While Sending Mail: ",err);

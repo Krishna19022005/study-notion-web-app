@@ -1,35 +1,40 @@
 const User = require("../models/User");
 const jwt = require("jsonwebtoken");
 require("dotenv").config();
-//auth
-exports.auth = async (req,res,next)=>{
-    try{
-        const token = req.cookies.token || req.body.token || req.header("Authorization").replace("Bearer","");
 
-        if(!token){
+//auth
+
+exports.auth = async (req, res, next) => {
+    try {
+       const authHeader = req.headers.authorization;
+
+        const token =
+            req.cookies?.token ||
+            req.body?.token ||
+            authHeader?.split(" ")[1];
+                console.log("Extracted Token:", token);
+
+        if (!token) {
             return res.status(401).json({
-                success:false,
-                message:"Token is Missing",
+                success: false,
+                message: "Token is Missing",
             });
         }
-        //verify token
-        try{
-            const decode = await jwt.verify(token,process.env.JWT_SECRET);
-            console.log(decode);
-            req.user = decode;
-        }catch(err){
-            return res.status(401).json({
-                success:false,
-                message:'Token is invalid',
-            }); 
-        }
+
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+        console.log("Decoded:", decoded);
+
+        req.user = decoded;
+
         next();
-    }
-    catch(err){
+    } catch (err) {
+        console.log("AUTH ERROR:", err);
+
         return res.status(401).json({
-            success:false,
-            message:"Something went wrong while validating th e token",
-        })
+            success: false,
+            message: err.message,
+        });
     }
 };
 

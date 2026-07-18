@@ -11,6 +11,7 @@ import About from "./pages/About";
 import Contact from "./pages/Contact";
 import Dashboard from "./pages/Dashboard";
 import MyProfile from "./components/core/Dashboard/MyProfile";
+import Settings from "./components/core/Dashboard/settings/index";
 
 function App(){
   return (
@@ -28,7 +29,7 @@ function App(){
 
         <Route path="/dashboard" element ={<Dashboard/>}>
           <Route path="my-profile" element={<MyProfile/>}/>
-          {/* <Route path="setting" element={<Settings/>}/> */}
+          <Route path="settings" element={<Settings/>}/>
         </Route>
 
       </Routes>
