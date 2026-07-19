@@ -26,10 +26,12 @@ exports.updateProfile = async (req,res)=>{
 
         await profileDetails.save();
 
+        const updatedUser = await User.findById(id).populate("additionalDetails").exec();
+
         return res.status(200).json({
             success:true,
             message:"Profile Updated Successfully",
-            profileDetails,
+            user:updatedUser,
         })
     }
     catch(err){
@@ -126,7 +128,12 @@ exports.updateDisplayPicture = async (req,res)=>{
 exports.getEnrolledCourses = async(req,res)=>{
     try{
         const userId = req.user.id;
-        const userDetails = await User.findById(userId).populate("courses").exec();
+        const userDetails = await User.findById(userId)
+            .populate({
+                path: "courses",
+                match: { status: "Published" },
+            })
+            .exec();
 
         if(!userDetails){
             return res.status(400).json({

@@ -52,17 +52,11 @@ export function updateProfile (token,formData){
             if(!response.data.success){
                 throw new Error(response.data.message);
             }
-            const userImage =
-                response.data.profileDetails.image ||
-                `https://api.dicebear.com/5.x/initials/svg?seed=${response.data.profileDetails.firstName} ${response.data.profileDetails.lastName}`;
 
             dispatch(
-                setUser({
-                    ...response.data.profileDetails,
-                    image: userImage,
-                })
+                setUser(response.data.user)
             );
-
+            localStorage.setItem("user", JSON.stringify(response.data.user));
             toast.success("Profile Updated Successfully");
         }
         catch(error){
