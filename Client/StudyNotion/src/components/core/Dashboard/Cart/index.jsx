@@ -5,15 +5,15 @@ import '../../../../App.css'
 
 export default function Cart(){
     const {total,totalItems} = useSelector((state)=>state.cart);
-    const {paymentLoading} = useSelector((state)=>state.course);
+    // const {paymentLoading} = useSelector((state)=>state.course);
 
-    if(paymentLoading){
-        return(
-            <div className='flex h-screen items-center justify-center'>
-                <div className='loader'></div>
-            </div>
-        )
-    }
+    // if(paymentLoading){
+    //     return(
+    //         <div className='flex h-screen items-center justify-center'>
+    //             <div className='loader'></div>
+    //         </div>
+    //     )
+    // }
 
     return(
         <>

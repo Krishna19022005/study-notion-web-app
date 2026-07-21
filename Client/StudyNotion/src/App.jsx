@@ -13,6 +13,8 @@ import Dashboard from "./pages/Dashboard";
 import MyProfile from "./components/core/Dashboard/MyProfile";
 import Settings from "./components/core/Dashboard/settings/index";
 import EnrolledCourses from "./components/core/Dashboard/EnrolledCourses";
+import Cart from './components/core/Dashboard/Cart/index'
+
 function App(){
   return (
     <div className="w-screen min-h-screen bg-richblack-900 flex flex-col font-inter">
@@ -31,6 +33,8 @@ function App(){
           <Route path="my-profile" element={<MyProfile/>}/>
           <Route path="settings" element={<Settings/>}/>
           <Route path="enrolled-courses" element={<EnrolledCourses/>}/>
+          <Route path="cart" element={<Cart/>}/>
+
         </Route>
 
       </Routes>

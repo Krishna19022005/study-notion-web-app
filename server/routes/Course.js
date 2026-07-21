@@ -8,6 +8,8 @@ const{
     createCourse,
     getAllCourses,
     getCourseDetails,
+    deleteCourse,
+    editCourse,
 } = require("../controller/Course");
 
 //category controller
@@ -48,6 +50,8 @@ const {
 //Only instructor can create courses
 
 router.post('/createCourse',auth,isInstructor,createCourse);//done
+router.put("/editCourse",auth,isInstructor,editCourse);
+router.delete("/deleteCourse",auth,isInstructor,deleteCourse);
 
 router.post('/addSection',auth,isInstructor,createSection);//done
 router.post('/updateSection',auth,isInstructor,updateSection);//done
@@ -68,7 +72,7 @@ router.get("/showAllCategories",showAllCategories);//done
 router.get("/getCategoryPageDetails",categoryPageDetails);//done
 
 //rating and reviews
-router.get('/createRating',auth,isStudent,createRating);
+router.post('/createRating',auth,isStudent,createRating);
 router.get("/getAverageRating",getAverageRating);
 router.get("/getReviews",getAllRatingAndReviews);
 
