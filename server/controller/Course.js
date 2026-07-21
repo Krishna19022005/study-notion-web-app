@@ -2,6 +2,7 @@ const Course = require("../models/Course");
 const Category = require("../models/Category")
 const Section = require("../models/Section");
 const SubSection = require("../models/SubSection");
+const CourseProgress = require("../models/CourseProgress");
 const User = require("../models/User");
 const {uploadImageToCloudinary} = require("../utils/imageUploader");
 require("dotenv").config();
@@ -318,3 +319,66 @@ exports.deleteCourse = async(req,res)=>{
         });
     }
 }
+
+//get courses of a specific instructor
+
+exports.getInstructorCourses = async(req,res)=>{
+    try{
+        const instructorId = req.user.id;
+
+        const courses = await Course.find({
+            instructor:instructorId,
+        })
+        .populate("category")
+        .sort({createdAt:-1});
+
+        return res.status(200).json({
+            success:true,
+            data:courses,
+            message:"Instructor courses fetched successfully",
+        });
+    }
+    catch(error){
+        console.log(error);
+
+        return res.status(500).json({
+            success:false,
+            message:"Failed to fetch instructor courses",
+            error:error.message,
+        });
+    }
+}
+
+//mark as completed
+
+exports.updateCourseProgress = async (req,res)=>{
+    try{
+        const {courseId, subSectionId} = req.body();
+        const userId = req.user.id;
+        let courseProgress = await CourseProgress.findOne({
+            courseID:courseId,
+            userId:userId,
+        });
+        if(!courseProgress){
+            return res.status(404).json({
+                success:false,
+                message:"Course Progress does not exist",
+            })
+        }
+        if(courseProgress.completedVideos.includes(subSectionId)){
+            return res.status(400).json({
+                success:false,
+                message:"Lecture Already completed",
+            });
+        }
+        //mark lecture as completed
+        courseProgress.completedVideos.push(subSectionId);
+        await courseProgress.save();
+
+        return res.status(200).json({
+            success:true,
+            message:"Failed to update course progress",
+            error:error.message,
+        });
+    }
+};

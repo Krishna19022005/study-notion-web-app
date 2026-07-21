@@ -10,6 +10,8 @@ const{
     getCourseDetails,
     deleteCourse,
     editCourse,
+    updateCourseProgress,
+    getInstructorCourses,
 } = require("../controller/Course");
 
 //category controller
@@ -63,6 +65,9 @@ router.post("/deleteSubSection",auth,isInstructor,deleteSubSection);//done
 
 router.get("/getAllCourses",getAllCourses);//done
 router.get("/getCourseDetails",getCourseDetails);//done
+
+router.post("/updateCourseProgress",auth,isStudent,updateCourseProgress);
+router.get("/getInstructorCourses",auth,isInstructor,getInstructorCourses);
 
 //Category routes
 //only admin can create category
